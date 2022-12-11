@@ -1,3 +1,4 @@
+
 <template>
   <div id="app">
     
@@ -6,17 +7,17 @@
         <CardComponent class="col"  v-for="show in tvshows" v-bind:key="show.id" :movie="show" @push-to-movies="pushToMovies" ></CardComponent>
     </div>
     
-    <table  v-show = "movieselectedAray.length >0">
+    <table class="table table-striped"  v-show = "movieselectedAray.length >0">
       <h1 >Shopping Cart</h1>
   <tr>
-    <th>Movie Name</th>
-    <th>Child Tickets</th>
-    <th>Adult Tickets</th>
-    <th>Subtotal</th>
-    <th>Remove Button</th>
+    <th scope="col">Movie Name</th>
+    <th scope="col">Child Tickets</th>
+    <th scope="col">Adult Tickets</th>
+    <th scope="col">Subtotal</th>
+    <th scope="col">Remove Button</th>
   </tr>
   <!--Made it to where it will cycle through all the objects int the array that we got from our card components and in each row its simply calling the name and amount of tickets that was in that object. I used index here to show which object we were looking at and it helps later on with calling specific item in our negative buttons. -->
-  <tr v-for="(TOTALPACKAGE, index) in movieselectedAray" v-bind:key="TOTALPACKAGE.Name" >
+  <tr scope="row"  v-for="(TOTALPACKAGE, index) in movieselectedAray" v-bind:key="TOTALPACKAGE.Name" >
     <td>{{TOTALPACKAGE.Name}}</td>
     <td>${{TOTALPACKAGE.childTicketAmount}} X $10 <button @click="subtractchild(index)">-</button></td>
     <td>{{TOTALPACKAGE.adultTicketAmount}} X $13<button @click="subtractadult(index)">-</button></td>
@@ -34,7 +35,6 @@
 
 <script>  
 import 'bootstrap'
-
 import 'bootstrap/dist/css/bootstrap.min.css'
 import CardComponent from './components/CardComponent.vue';
 import NavBar from './components/NavBar.vue'
@@ -113,6 +113,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   margin-top: 0px;
+
 }
 </style>
 
