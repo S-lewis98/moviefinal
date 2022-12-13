@@ -19,7 +19,7 @@
   <!--Made it to where it will cycle through all the objects int the array that we got from our card components and in each row its simply calling the name and amount of tickets that was in that object. I used index here to show which object we were looking at and it helps later on with calling specific item in our negative buttons. -->
   <tr scope="row"  v-for="(TOTALPACKAGE, index) in movieselectedAray" v-bind:key="TOTALPACKAGE.Name" >
     <td>{{TOTALPACKAGE.Name}}</td>
-    <td>${{TOTALPACKAGE.childTicketAmount}} X $10 <button @click="subtractchild(index)">-</button></td>
+    <td>{{TOTALPACKAGE.childTicketAmount}} X $10 <button @click="subtractchild(index)">-</button></td>
     <td>{{TOTALPACKAGE.adultTicketAmount}} X $13<button @click="subtractadult(index)">-</button></td>
     <td>${{subtotal(TOTALPACKAGE)}}</td>
     <td><button v-on:click="remove(TOTALPACKAGE)">Remove</button></td>
@@ -50,7 +50,8 @@ export default {
   data(){
     return{
       tvshows:[],
-      movieselectedAray: []
+      movieselectedAray: [],
+      //sumArray: []
     }
   },
   mounted() {
@@ -82,20 +83,24 @@ export default {
   },
   //just returning the subtotals easy math 
     subtotal(haha) { 
-  return (haha.adultTicketAmount * 13.00) + (haha.childTicketAmount * 10.00)
+    return (haha.adultTicketAmount * 13.00) + (haha.childTicketAmount * 10.00);
+    //this.sumArray.push ((haha.adultTicketAmount * 13.00) + (haha.childTicketAmount * 10.00))
+    
 }
 ,// simply get the array and loops through all the objects adding them into child and adult sums, them multiplies them base off of our constants. 
-    total(movies) {
-  let Asum = 0;
-  let Csum = 0;
-  for ( let i=0; i<movies.length; i++) 
+  total(movies) 
   {
-    Asum += movies[i].adultTicketAmount
-    Csum += movies[i].childTicketAmount
-  }
-  var sum= (Asum* 13.00)+ (Csum * 10.00);
-  return sum;
-},
+    var Asum = 0;
+    var Csum = 0;
+    for ( let i=0; i<movies.length; i++) 
+    { //had to put it as number or it was add the numbers at the end like 1+1 would =11 not 2
+      Asum += Number(movies[i].adultTicketAmount)
+      Csum += Number(movies[i].childTicketAmount)
+    }
+    var sum= (Asum * 13.00) + (Csum * 10.00);
+    return sum;
+  },
+
     // this is how we are getting the array to the main. 
     pushToMovies(itemtopush)
     {
